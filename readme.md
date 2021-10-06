@@ -1,0 +1,2 @@
+Este programa muestra el funcionamiento de dos apis mediante coordenadas
+Coordenadas de colima: Latitud 19.234 y longitud -103.728, en este caso para saber la calidad del tiempo se agrego un onclick a un label donde se muestra el nombre de colima que al hacer click te muestra la calidad del tiempo.

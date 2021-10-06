@@ -1,0 +1,95 @@
+¿Que son las promesas JS?
+R= Las promesas son un concepto para resolver el problema de asincronía
+ de una forma mucho más elegante y práctica que, por ejemplo, 
+ utilizando funciones callbacks directamente.
+Como su propio nombre indica, una promesa es algo que, 
+en principio pensamos que se cumplirá, pero en el futuro pueden ocurrir varias cosas:
+-La promesa se cumple (promesa resuelta)
+-La promesa no se cumple (promesa se rechaza)
+-La promesa se queda en un estado incierto indefinidamente (promesa pendiente)
+
+
+Las promesas en Javascript se representan a través de un , 
+y cada promesa estará en un estado concreto: pendiente, 
+aceptada o rechazada. Además, cada promesa tiene los siguientes métodos,
+ que podremos utilizar para utilizarla:
+
+ .then(resolve) =	Ejecuta la función callback resolve cuando la promesa se cumple.
+ .catch(reject) =	Ejecuta la función callback reject cuando la promesa se rechaza.
+ .then(resolve,reject) = Método equivalente a las dos anteriores en el mismo .then().
+ .finally(end) =	Ejecuta la función callback end tanto si se cumple como si se rechaza.
+
+ La forma general de consumir una promesa es utilizando el .then() con un sólo parámetro, 
+ puesto que muchas veces lo único que nos interesa es realizar una acción cuando 
+ la promesa se cumpla:
+
+fetch("/robots.txt").then(function(response) {
+  /* Código a realizar cuando se cumpla la promesa */
+});
+
+Lo que vemos en el ejemplo anterior es el uso de la función fetch(), 
+la cuál devuelve una promesa que se cumple cuando obtiene respuesta de 
+la petición realizada. De esta forma, estaríamos preparando (de una forma legible) 
+la forma de actuar de nuestro código a la respuesta de la petición realizada, 
+todo ello de forma asíncrona.
+
+
+
+
+
+¿Que es callbacks?
+Los callbacks (a veces denominados funciones de retrollamada o funciones callback)
+ no son más que un tipo de funciones que se pasan por parámetro a otras funciones.
+  El objetivo de esto es tener una forma más legible de escribir funciones, 
+  más cómoda y flexible para reutilizarlas, y además entra bastante en consonancia con el
+   concepto de asincronía de Javascript, como veremos más adelante.
+
+   Como hemos dicho, las funciones callback no son más que un tipo de funciones que
+    se pasan por parámetro a otras funciones. Además, los parámetros de dichas funciones
+     toman un valor especial en el contexto del interior de la función.
+Pero veamos un ejemplo. Imaginemos el siguiente bucle tradicional para recorrer un :
+
+const list = ["A", "B", "C"];
+
+for (let i = 0; i < list.length; i++) {
+  console.log("i=", i, " list=", list[i]);
+}
+En i tenemos la posición del array que estamos recorriendo (va de 0 a 2) y con list[i] 
+accedemos a la posición del array para obtener el elemento, es decir, desde A hasta C. 
+Ahora veamos, como podemos hacer este mismo bucle utilizando el método forEach() del
+  al cuál le pasamos una función callback:
+
+list.forEach(function(e,i) {
+  console.log("i=", i, "list=", e);
+});
+Esto se puede reescribir como:
+
+["A", "B", "C"].forEach((e,i) => console.log("i=", i, "list=", e));
+Lo importante de este ejemplo es que se vea que la función callback que le hemos pasando 
+a forEach() se va a ejecutar por cada uno de los elementos del array, 
+y en cada iteración de dicha función callback, los parámetros e, 
+i van a tener un valor especial:
+
+e es el elemento del array
+i es el índice (posición) del array
+
+
+Una vez entendido esto, vamos a profundizar un poco con las funciones callbacks 
+utilizadas para realizar tareas asíncronas. Probablemente, 
+el caso más fácil de entender es utilizar un temporizador mediante
+ la función setTimeout(callback, time).
+
+Dicha función nos exige dos parámetros:
+
+La función callback a ejecutar
+El tiempo time que esperará antes de ejecutarla
+
+
+Así pues, el ejemplo sería el siguiente:
+
+setTimeout(function() {
+  console.log("He ejecutado la función");
+}, 2000);
+Simplemente, le decimos a setTimeout() que ejecute la función callback
+ que le hemos pasado por primer parámetro cuando transcurran 2000 
+ milisegundos (es decir, 2 segundos). 
